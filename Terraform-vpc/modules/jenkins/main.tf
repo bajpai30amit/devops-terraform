@@ -1,6 +1,6 @@
 resource "aws_instance" "web" {
-#      count = length(var.ec2_names)
-	  ami = data.aws_ami.amazon-2.id
+#     count = length(var.ec2_names)
+	  ami = "ami-0984f4b9e98be44bf"
       instance_type = "t2.micro"
       vpc_security_group_ids = [var.sg_id]
       associate_public_ip_address = true
