@@ -1,3 +1,4 @@
-output "instances" {
-    value = aws_instance.web.*.id
+output "jenkins_server_public_ip" {
+  description = "The public IP address of the Jenkins server"
+  value       = aws_instance.jenkins_server.public_ip
 }
