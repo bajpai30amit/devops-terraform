@@ -16,7 +16,7 @@ resource "aws_instance" "web" {
 	  sudo apt install default-jre -y
 	  sudo apt install jenkins -y
 	  sudo systemctl start jenkins
-
+    EOF
     tags = {
         Name = var.ec2_names[count.index]
     }
