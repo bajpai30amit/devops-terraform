@@ -1,6 +1,6 @@
 resource "aws_instance" "web" {
     count = length(var.ec2_names)
-	ami = data.aws_ami.amazon-2.id
+	  ami = data.aws_ami.amazon-2.id
     instance_type = "t2.micro"
     vpc_security_group_ids = [var.sg_id]
     associate_public_ip_address = true
@@ -8,15 +8,14 @@ resource "aws_instance" "web" {
     availability_zone = data.aws_availability_zones.available.names[count.index]
     
     user_data = <<EOF
-    #!/bin/bash
-    # Use this for your user data (script from top to bottom)
-    # install httpd (Linux 2 version)
-    yum update -y
-    yum install -y httpd
-    systemctl start httpd
-    systemctl enable httpd
-    echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
-    EOF
+
+	  #!/bin/bash
+	  wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+	  sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+	  sudo apt update && sudo apt upgrade -y
+	  sudo apt install default-jre -y
+	  sudo apt install jenkins -y
+	  sudo systemctl start jenkins
 
     tags = {
         Name = var.ec2_names[count.index]
