@@ -17,7 +17,5 @@ resource "aws_instance" "web" {
 	  sudo systemctl start jenkins
     EOF
 
-    tags = {
-        Name = var.ec2_names[count.index]
-    }
+    
 }
