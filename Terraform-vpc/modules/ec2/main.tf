@@ -8,7 +8,6 @@ resource "aws_instance" "web" {
     availability_zone = data.aws_availability_zones.available.names[count.index]
     
     user_data = <<EOF
-
 	  #!/bin/bash
 	  wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
 	  sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
@@ -17,6 +16,7 @@ resource "aws_instance" "web" {
 	  sudo apt install jenkins -y
 	  sudo systemctl start jenkins
     EOF
+
     tags = {
         Name = var.ec2_names[count.index]
     }
